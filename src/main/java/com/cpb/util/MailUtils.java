@@ -68,8 +68,4 @@ public final class MailUtils {
         }
         return false;
     }
-
-    public static void main(String[] args) {
-        sendMail("leafysn@qq.com", "test", "test");
-    }
 }

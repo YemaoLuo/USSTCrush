@@ -11,4 +11,8 @@ import com.cpb.domain.msg;
 public interface crushService {
 
     public msg insertCrush(crush crush);
+
+    public msg findCrush(crush crush);
+
+    public msg updateCrushChecked(crush crush);
 }

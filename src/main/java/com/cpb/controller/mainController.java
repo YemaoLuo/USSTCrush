@@ -23,13 +23,12 @@ public class mainController {
     private submitService submitService;
     @Autowired
     private crushService crushService;
-    @Autowired
-    private MailUtils mailUtils;
 
     @RequestMapping("/submit")
     public ModelAndView submit(crush crush, String email) {
         ModelAndView modelAndView = new ModelAndView();
         user user = new user(crush.getUname(), email);
+        crush.setChecked(false);
         msg msgFound = submitService.checkUserExist(user);
         if (msgFound.getFlag() == false) {
             modelAndView.setViewName("index");
@@ -40,7 +39,11 @@ public class mainController {
         crushService.insertCrush(crush);
         modelAndView.setViewName("success");
         modelAndView.addObject("msg", msg);
-        MailUtils.sendMail(email, "祝你好运！", "USSTCrush自动发送");
+        msg msgCrush = crushService.findCrush(crush);
+        if (msgCrush.getFlag()) {
+            MailUtils.sendMail(email, "两情相悦", "来自USSTCrush的祝福");
+            crushService.updateCrushChecked(crush);
+        }
         return modelAndView;
     }
 }

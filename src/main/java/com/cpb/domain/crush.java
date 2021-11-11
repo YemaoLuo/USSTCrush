@@ -10,21 +10,7 @@ public class crush {
     private String uname;
     private String tname;
 
-    public crush(String uname, String tname) {
-        this.uname = uname;
-        this.tname = tname;
-    }
-
-    public crush() {
-    }
-
-    @Override
-    public String toString() {
-        return "crush{" +
-                "uname='" + uname + '\'' +
-                ", tname='" + tname + '\'' +
-                '}';
-    }
+    private Boolean checked;
 
     public String getUname() {
         return uname;
@@ -41,5 +27,32 @@ public class crush {
     public void setTname(String tname) {
         this.tname = tname;
     }
+
+    public crush(String uname, String tname, Boolean checked) {
+        this.uname = uname;
+        this.tname = tname;
+        this.checked = checked;
+    }
+
+    public crush() {
+    }
+
+    @Override
+    public String toString() {
+        return "crush{" +
+                "uname='" + uname + '\'' +
+                ", tname='" + tname + '\'' +
+                ", checked=" + checked +
+                '}';
+    }
+
+    public Boolean getChecked() {
+        return checked;
+    }
+
+    public void setChecked(Boolean checked) {
+        this.checked = checked;
+    }
+
 
 }

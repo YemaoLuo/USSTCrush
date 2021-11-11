@@ -21,7 +21,32 @@ public class crushServiceImpl implements crushService {
     @Override
     public msg insertCrush(crush crush) {
         msg msg = new msg(true, "添加成功");
-        crushMapper.insertCrush(crush.getUname(), crush.getTname());
+        crushMapper.insertCrush(crush.getUname(), crush.getTname(), crush.getChecked());
+        return msg;
+    }
+
+    @Override
+    public msg findCrush(crush crush) {
+        msg msg = new msg();
+        try {
+            crush crushFound = crushMapper.findCrush(crush.getUname(), crush.getTname());
+            if (crushFound == null) {
+                msg.setFlag(false);
+            } else {
+                msg.setFlag(true);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return msg;
+    }
+
+    @Override
+    public msg updateCrushChecked(crush crush) {
+        msg msg = new msg();
+        crushMapper.updateCrushChecked(crush.getUname());
+        crushMapper.updateCrushChecked(crush.getTname());
+        msg.setFlag(true);
         return msg;
     }
 }
