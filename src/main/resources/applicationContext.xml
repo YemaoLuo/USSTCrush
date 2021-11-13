@@ -16,8 +16,14 @@
     </bean>
 
     <!--  开启这个配置，spring才能识别@Scheduled注解     -->
-    <task:annotation-driven scheduler="qbScheduler" mode="proxy"/>
-    <task:scheduler id="qbScheduler" pool-size="10"/>
+    <!-- 配置任务线性池 -->
+    <!-- 任务执行器线程数量 -->
+    <task:executor id="executor" pool-size="3" />
+    <!-- 任务调度器线程数量 -->
+    <task:scheduler id="scheduler" pool-size="3" />
+    <!-- 启用annotation方式 -->
+    <task:annotation-driven scheduler="scheduler"
+                            executor="executor" proxy-target-class="true" />
 
     <!--配置sessionFactory-->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
