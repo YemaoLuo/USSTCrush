@@ -21,4 +21,7 @@ public interface crushMapper {
 
     @Update("Update crush set checked = 1 where uname = #{uname}")
     public void updateCrushChecked(@Param("uname") String uname);
+
+    @Select("Select * from crush where tname = #{name}")
+    public crush findSingleCrush(@Param("name") String name);
 }

@@ -39,11 +39,6 @@ public class mainController {
         crushService.insertCrush(crush);
         modelAndView.setViewName("success");
         modelAndView.addObject("msg", msg);
-        msg msgCrush = crushService.findCrush(crush);
-        if (msgCrush.getFlag()) {
-            MailUtils.sendMail(email, "两情相悦", "来自USSTCrush的祝福");
-            crushService.updateCrushChecked(crush);
-        }
         return modelAndView;
     }
 }

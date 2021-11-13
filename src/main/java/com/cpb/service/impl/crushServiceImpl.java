@@ -3,7 +3,9 @@ package com.cpb.service.impl;
 import com.cpb.domain.crush;
 import com.cpb.domain.msg;
 import com.cpb.mapper.crushMapper;
+import com.cpb.mapper.submitMapper;
 import com.cpb.service.crushService;
+import com.cpb.util.MailUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +19,8 @@ public class crushServiceImpl implements crushService {
 
     @Autowired
     private crushMapper crushMapper;
+    @Autowired
+    private submitMapper submitMapper;
 
     @Override
     public msg insertCrush(crush crush) {
