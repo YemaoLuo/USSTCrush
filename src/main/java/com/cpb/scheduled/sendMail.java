@@ -24,20 +24,32 @@ public class sendMail {
     @Autowired
     private submitMapper submitMapper;
 
-    @Scheduled(cron = "0 */1 * * * ?")
+    @Scheduled(cron = "0 30 0 * * ?")
     public void sendMail() {
+        Boolean flag = false;
         System.out.println("Mail send...");
         List<user> allUsers = submitMapper.findAllUsers();
+        int count = 0;
         for (user user : allUsers) {
             user user1 = submitMapper.finduserByName(crushMapper.findSingleCrush(user.getName()).getUname());
             crush crush = crushMapper.findCrush(user.getName(), user1.getName());
             if (user1 != null && crush.getChecked() == false) {
                 String email = user1.getEmail();
-                MailUtils.sendMail(email, "两情相悦", "USSTCrush的祝福");
-                MailUtils.sendMail(user.getEmail(), "两情相悦", "USSTCrush的祝福");
-                crushMapper.updateCrushChecked(user1.getName());
-                crushMapper.updateCrushChecked(user.getName());
+                try{
+                    MailUtils.sendMail(email, "两情相悦", "USSTCrush的祝福");
+                    MailUtils.sendMail(user.getEmail(), "两情相悦", "USSTCrush的祝福");
+                    flag = true;
+                }catch (Exception e){
+                    e.printStackTrace();
+                    return;
+                }
+                if (flag) {
+                    crushMapper.updateCrushChecked(user1.getName());
+                    crushMapper.updateCrushChecked(user.getName());
+                    count ++;
+                }
             }
         }
+        MailUtils.sendMail("leafysn@qq.com", "USSTCrush mails = " + String.valueOf(count), "USSTCrushReport");
     }
 }

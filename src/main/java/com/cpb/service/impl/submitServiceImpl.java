@@ -28,7 +28,7 @@ public class submitServiceImpl implements submitService {
     @Override
     public msg checkUserExist(user user) {
         msg msg = new msg();
-        user userFound = submitMapper.finduserByNameAndId(user.getName(), user.getEmail());
+        user userFound = submitMapper.finduserByName(user.getName());
         if (userFound == null) {
             msg.setFlag(true);
             return msg;
